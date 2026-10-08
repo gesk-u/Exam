@@ -1,25 +1,39 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+import { getWorkoutById, deleteWorkout } from "../utils/api";
+import { FIELDS, WORKOUT_NAME, ROUTES, TITLE_FIELD } from "../config";
+import { formatValue } from "../utils/fields";
 
 const WorkoutPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { data: workout, loading, error } = useFetch(() => getWorkoutById(id), [id]);
 
-  // TODO (Q4): Implement this component
-  // - Fetch the workout from /api/workouts/:id when the component mounts (useEffect)
-  // - Store the workout in state (useState)
-  // - Display ALL workout fields:
-  //   workoutTitle, description,
-  //   city, state, session price, fitness level, status,
-  //   required equipment
-  // - Add a Delete button that sends DELETE to /api/workouts/:id and navigates to "/"
-  // - Add an Edit link to /edit-workout/:id
+  const onDelete = async () => {
+    if (!window.confirm(`Delete this ${WORKOUT_NAME}?`)) return;
+    try {
+      await deleteWorkout(id);
+      navigate(ROUTES.home);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (!workout) return null;
 
   return (
-    <div className="rental-preview">
-      <h2>Workout Details</h2>
-      <p>TODO: Implement this page</p>
+    <div className="workout-details">
+      <h2>{workout[TITLE_FIELD]}</h2>
+      {FIELDS.filter((f) => f.name !== TITLE_FIELD).map((f) => (
+        <p key={f.name}>{f.label}: {formatValue(workout, f)}</p>
+      ))}
+      <button onClick={() => navigate(`${ROUTES.edit}/${id}`)}>Edit</button>
+      <button onClick={onDelete}>Delete</button>
     </div>
   );
 };
 
 export default WorkoutPage;
+

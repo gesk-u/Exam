@@ -1,11 +1,17 @@
-import WorkoutListings from "../components/WorkoutListings";
+import useFetch from "../hooks/useFetch";
+import { getAllWorkouts } from "../utils/api";
+import WorkoutListing from "../components/WorkoutListing";
 
-const Home = () => {
+const HomePage = () => {
+  const { data: workouts, loading, error } = useFetch(getAllWorkouts);
+
   return (
     <div className="home">
-      <WorkoutListings />
+      {error && <div>{error}</div>}
+      {loading && <div>Loading...</div>}
+      {workouts && workouts.map((workout) => <WorkoutListing key={workout._id} workout={workout} />)}
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
