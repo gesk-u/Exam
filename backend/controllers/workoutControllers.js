@@ -47,8 +47,32 @@ const getWorkoutById = async (req, res) => {
 // - Return the updated workout as JSON
 // - Return 404 with { error: "Workout not found" } if not found
 const updateWorkout = async (req, res) => {
-  res.send("updateWorkout - not yet implemented");
+  const { workoutId } = req.params;
+  //const user_id = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(workoutId)) {
+    return res.status(400).json({ message: "Invalid workout ID" });
+  }
+  try {
+    const updatedWorkout = await Workout.findOneAndUpdate(
+      { _id: workoutId}, // { _id: workoutId, user_id }
+      { ...req.body },
+      { returnDocument: "after", runValidators: true},
+    );
+    if (updatedWorkout) {
+      res.status(200).json(updatedWorkout);
+    } else {
+      res.status(404).json({ message: "Workout not found" });
+    }
+
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: "Failed to update a workout" });
+  }
 };
+
 
 // TODO (Q2): Implement deleteWorkout
 // - Delete the workout by req.params.workoutId
