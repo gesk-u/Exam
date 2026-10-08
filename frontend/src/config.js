@@ -19,6 +19,7 @@ export const FIELDS = [
   { name: "workoutTitle", label: "Title", required: true },
   { name: "description", label: "Description", type: "textarea", required: true },
   { name: "location.city", label: "City", type: "textarea", required: true },
+  { name: "location.state", label: "State", type: "textarea", required: true },
   { name: "sessionPrice", label: "Price", type: "number", min: 0, required: true },
   { name: "fitnessLevel", label: "Difficulty", type: "select", options: ["Beginner", "Intermediate", "Advanced"] },
   { name: "requiredEquipment", label: "RequiredEquipment", type: "textarea", required: true },
