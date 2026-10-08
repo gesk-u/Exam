@@ -4,7 +4,7 @@ import { getWorkoutById, deleteWorkout } from "../utils/api";
 import { FIELDS, WORKOUT_NAME, ROUTES, TITLE_FIELD } from "../config";
 import { formatValue } from "../utils/fields";
 
-const WorkoutPage = () => {
+const WorkoutPage = ({ isAuthenticated }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: workout, loading, error } = useFetch(() => getWorkoutById(id), [id]);
@@ -29,8 +29,12 @@ const WorkoutPage = () => {
       {FIELDS.filter((f) => f.name !== TITLE_FIELD).map((f) => (
         <p key={f.name}>{f.label}: {formatValue(workout, f)}</p>
       ))}
-      <button onClick={() => navigate(`${ROUTES.edit}/${id}`)}>Edit</button>
-      <button onClick={onDelete}>Delete</button>
+      {isAuthenticated && (
+        <>
+          <button onClick={() => navigate(`${ROUTES.edit}/${id}`)}>Edit</button>
+          <button onClick={onDelete}>Delete</button>
+        </>
+      )}
     </div>
   );
 };

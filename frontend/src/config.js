@@ -42,3 +42,23 @@ FIELDS = [
   { name: "price", label: "Price", type: "number", min: 0, required: true },
 ];
 */
+
+ROUTES.login = "/login";
+ROUTES.signup = "/signup";
+export const USERS_API = "/api/users";
+
+export const USER_DISPLAY_FIELD = "username"; // shown in Navbar
+
+export const SIGNUP_FIELDS = [
+  { name: "username", label: "Username", required: true },
+  { name: "name", label: "Name", required: true },
+  { name: "phone_number", label: "Phone Number", type: "tel", required: true },
+  { name: "password", label: "Password", type: "password", required: true },
+  { name: "adress", label: "Adress", required: true },
+  // { name: "role", label: "Role", type: "select", options: ["user", "admin"] },
+];
+
+export const LOGIN_FIELDS = [
+  { name: "username", label: "Username", required: true },
+  { name: "password", label: "Password", type: "password", required: true },
+];
