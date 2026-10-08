@@ -7,6 +7,6 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   phone_number: { type: String, required: true },
   address: { type: String, required: true },
-}, { timestamps: true, versionKey: false });
+}, { timestamps: true, versionKey: false, toJSON: { virtuals: true } });
 
 module.exports = mongoose.model("User", userSchema);
