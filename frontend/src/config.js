@@ -54,7 +54,7 @@ export const SIGNUP_FIELDS = [
   { name: "name", label: "Name", required: true },
   { name: "phone_number", label: "Phone Number", type: "tel", required: true },
   { name: "password", label: "Password", type: "password", required: true },
-  { name: "adress", label: "Adress", required: true },
+  { name: "address", label: "Address", required: true },
   // { name: "role", label: "Role", type: "select", options: ["user", "admin"] },
 ];
 

@@ -10,7 +10,7 @@ const api = supertest(app);
 const Model = require("../models/workoutModel");
 const BASE_URL = "/api/workouts";
 const SIGNUP_URL = "/api/users/signup";
-const TITLE = "title"; // a required string field, used for checks
+const TITLE = "workoutTitle"; // a required string field, used for checks
 
 // 2 objects with EVERY required field of your schema
 const initialWorkouts = [

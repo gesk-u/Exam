@@ -25,7 +25,6 @@ const userResponse = (user) => {
 
 // POST /api/users/signup
 const signup = async (req, res) => {
-  console.log(req.body)
   try {
     if (!SIGNUP_FIELDS.every((f) => isFilled(req.body[f]))) {
       return res.status(400).json({ error: "Please add all fields" });
